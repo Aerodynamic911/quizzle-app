@@ -134,11 +134,31 @@ export default function AmisBloc({ codeAmi, jour, onChange }: Props) {
         },
       },
       { text: tr('Annuler', 'Cancel'), style: 'cancel' },
-    ]);
+    ],
+    // Android n'affiche que 3 boutons (« Annuler » disparaît) : on permet de fermer avec la touche retour ou en touchant à côté.
+    { cancelable: true });
   }
 
   return (
     <>
+      {!chargement && !horsLigne && liste && liste.recues.length > 0 && (
+          <View style={styles.section}>
+            <Text style={styles.sectionTitre}>{tr('🆕 Demandes d’amis reçues', '🆕 Friend requests received')}</Text>
+            <Text style={styles.note}>{tr('Ces joueurs veulent devenir vos amis. Acceptez pour voir leurs résultats et jouer ensemble.', 'These players want to be your friends. Accept to see their results and play together.')}</Text>
+            {liste.recues.map((d) => (
+              <View key={d.id} style={styles.ligne}>
+                <Text style={[styles.nom, { flex: 1 }]} numberOfLines={1}>{d.nom}</Text>
+                <TouchableOpacity style={styles.petitBouton} onPress={() => repondre(d.id, true)} accessibilityRole="button">
+                  <Text style={styles.petitBoutonTexte}>{tr('Accepter', 'Accept')}</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={[styles.petitBouton, styles.petitBoutonGris]} onPress={() => repondre(d.id, false)} accessibilityRole="button">
+                  <Text style={styles.petitBoutonGrisTexte}>{tr('Refuser', 'Decline')}</Text>
+                </TouchableOpacity>
+              </View>
+            ))}
+          </View>
+      )}
+
       <View style={styles.section}>
         <Text style={styles.sectionTitre}>{tr('Mon code ami', 'My friend code')}</Text>
         <Text style={styles.code}>{codeAmi}</Text>
@@ -190,24 +210,6 @@ export default function AmisBloc({ codeAmi, jour, onChange }: Props) {
       ) : (
         liste && (
           <>
-            {liste.recues.length > 0 && (
-              <View style={styles.section}>
-                <Text style={styles.sectionTitre}>{tr('🆕 Demandes d’amis reçues', '🆕 Friend requests received')}</Text>
-                <Text style={styles.note}>{tr('Ces joueurs veulent devenir vos amis. Acceptez pour voir leurs résultats et jouer ensemble.', 'These players want to be your friends. Accept to see their results and play together.')}</Text>
-                {liste.recues.map((d) => (
-                  <View key={d.id} style={styles.ligne}>
-                    <Text style={[styles.nom, { flex: 1 }]} numberOfLines={1}>{d.nom}</Text>
-                    <TouchableOpacity style={styles.petitBouton} onPress={() => repondre(d.id, true)} accessibilityRole="button">
-                      <Text style={styles.petitBoutonTexte}>{tr('Accepter', 'Accept')}</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={[styles.petitBouton, styles.petitBoutonGris]} onPress={() => repondre(d.id, false)} accessibilityRole="button">
-                      <Text style={styles.petitBoutonGrisTexte}>{tr('Refuser', 'Decline')}</Text>
-                    </TouchableOpacity>
-                  </View>
-                ))}
-              </View>
-            )}
-
             <View style={styles.section}>
               <Text style={styles.sectionTitre}>{tr('Mes amis', 'My friends')}</Text>
               {liste.amis.length === 0 ? (
