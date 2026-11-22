@@ -3,6 +3,7 @@
 // que l'adresse e-mail authentifiee par Access est bien celle du secret ADMIN_EMAIL.
 
 import { FAVICON_PNG_BASE64 } from './favicon';
+import { effacerJoueur } from './effacement';
 import { notifier } from './notifier';
 import { PAGE_ADMIN } from './pageAdmin';
 import {
@@ -128,6 +129,15 @@ export async function adminRequete(requete: Request, env: Env, url: URL): Promis
           : "UPDATE joueurs SET statut = 'banni', pseudo_cle = NULL WHERE id = ?";
     const res = await env.DB.prepare(requeteSql).bind(id).run();
     if (!res.meta.changes) return erreur(404, 'introuvable');
+    return json({ ok: true });
+  }
+
+  // --- Pseudos : effacement complet du joueur et de ses donnees ---
+  const effacement = pathname.match(/^\/admin\/pseudos\/([0-9a-f-]{36})$/);
+  if (methode === 'DELETE' && effacement) {
+    const existe = await env.DB.prepare('SELECT id FROM joueurs WHERE id = ?').bind(effacement[1]).first();
+    if (!existe) return erreur(404, 'introuvable');
+    await effacerJoueur(env, effacement[1]);
     return json({ ok: true });
   }
 
