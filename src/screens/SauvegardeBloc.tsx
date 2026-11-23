@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { ActivityIndicator, Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { FOURNISSEURS, ErreurCompte, lierCompte, restaurerProgression, sauvegardeDisponible } from '../game/compteLie';
-import { EtatSauvegarde, Fournisseur, etatSauvegarde, sauvegarderMaintenant } from '../game/sauvegarde';
+import { EtatSauvegarde, Fournisseur, envoyerSauvegarde, etatSauvegarde } from '../game/sauvegarde';
 import { supprimerProfil } from '../game/serveur';
 import { tr } from '../i18n';
 import { couleurs, rayon } from '../theme';
@@ -23,6 +23,11 @@ const MESSAGES: Record<ErreurCompte, () => string> = {
     tr(
       'Votre compte est reconnu, mais sa sauvegarde est vide : elle a été envoyée avant votre première partie.',
       'Your account was found, but its backup is empty: it was sent before your first game.',
+    ),
+  autre_telephone: () =>
+    tr(
+      'Cette progression a été restaurée sur un autre téléphone. Pour la reprendre ici, touchez « Restaurer ».',
+      'This progress was restored on another phone. To take it back here, tap “Restore”.',
     ),
   aucune_sauvegarde: () => tr('Aucune sauvegarde n’est liée à ce compte.', 'No backup is linked to this account.'),
   reseau: () => tr('Pas de connexion au serveur. Réessayez plus tard.', 'No connection to the server. Please try again later.'),
@@ -69,9 +74,10 @@ export default function SauvegardeBloc({ onRestaure }: Props) {
   async function sauvegarder() {
     setOccupe(true);
     setMessage('');
-    const ok = await sauvegarderMaintenant();
+    const res = await envoyerSauvegarde();
     setOccupe(false);
-    if (!ok) setMessage(MESSAGES.reseau());
+    if (res === 'autre_telephone') setMessage(MESSAGES.autre_telephone());
+    else if (res === 'echec') setMessage(MESSAGES.reseau());
     await rafraichir();
   }
 

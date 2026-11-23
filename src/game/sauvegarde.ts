@@ -82,20 +82,28 @@ export async function appliquerInstantane(donnees: unknown): Promise<boolean> {
   return true;
 }
 
-/** Envoie la progression au serveur. Renvoie `true` si elle est enregistrée. */
-export async function sauvegarderMaintenant(): Promise<boolean> {
+/** Résultat d'un envoi : `autre_telephone` = ce compte a été restauré ailleurs entre-temps, le secret de ce téléphone n'est plus valable. */
+export type ResultatEnvoi = 'ok' | 'autre_telephone' | 'echec';
+
+export async function envoyerSauvegarde(): Promise<ResultatEnvoi> {
   try {
     const etat = await etatSauvegarde();
     const compte = await compteLocal();
-    if (!etat || !compte) return false;
+    if (!etat || !compte) return 'echec';
     const cles = await lireInstantane();
     const r = await appeler('/v1/sauvegarde', 'PUT', compte, { donnees: { version: 1, cles } });
-    if (r.status !== 200) return false;
+    if (r.status === 401) return 'autre_telephone';
+    if (r.status !== 200) return 'echec';
     await ecrireEtat({ ...etat, derniere: new Date().toISOString() });
-    return true;
+    return 'ok';
   } catch {
-    return false;
+    return 'echec';
   }
+}
+
+/** Envoie la progression au serveur. Renvoie `true` si elle est enregistrée. */
+export async function sauvegarderMaintenant(): Promise<boolean> {
+  return (await envoyerSauvegarde()) === 'ok';
 }
 
 /** Envoi automatique : au plus toutes les 10 minutes (à l'ouverture et quand l'appli passe en arrière-plan), sans bruit en cas d'échec. */

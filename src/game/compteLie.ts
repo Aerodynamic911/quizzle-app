@@ -13,7 +13,7 @@ export const FOURNISSEURS: Fournisseur[] = Platform.OS === 'ios' ? ['apple', 'go
 /** Compte proposé par défaut. */
 export const FOURNISSEUR: Fournisseur = FOURNISSEURS[0];
 
-export type ErreurCompte = 'annule' | 'indisponible' | 'deja_lie' | 'aucune_sauvegarde' | 'sauvegarde_vide' | 'reseau' | 'inconnue';
+export type ErreurCompte = 'annule' | 'indisponible' | 'deja_lie' | 'aucune_sauvegarde' | 'sauvegarde_vide' | 'autre_telephone' | 'reseau' | 'inconnue';
 export type ResultatCompte = { ok: true } | { ok: false; erreur: ErreurCompte };
 
 /** Vrai quand la connexion est possible sur cet appareil. */
