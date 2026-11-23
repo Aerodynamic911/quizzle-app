@@ -291,7 +291,7 @@ export default function ProfilEcran({ onRetour, jour, resultatDuJour, onRelever,
                 {(
                   [
                     ['amis', tr('Amis', 'Friends') + (alertes.amis > 0 ? ` (${alertes.amis})` : '')],
-                    ['groupes', tr('Groupes', 'Groups')],
+                    ['groupes', tr('Clans', 'Clans')],
                     ['defis', tr('Défis', 'Challenges') + (alertes.defis > 0 ? ` (${alertes.defis})` : '')],
                   ] as const
                 ).map(([id, libelle]) => (

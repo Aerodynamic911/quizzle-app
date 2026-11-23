@@ -103,8 +103,8 @@ export default function SauvegardeBloc({ onRestaure }: Props) {
     Alert.alert(
       tr('Supprimer ma sauvegarde', 'Delete my backup'),
       tr(
-        'Votre compte en ligne, votre sauvegarde, vos amis et vos groupes seront supprimés du serveur. La progression restera sur ce téléphone.',
-        'Your online account, backup, friends and groups will be deleted from the server. Your progress stays on this phone.',
+        'Votre compte en ligne, votre sauvegarde, vos amis et vos clans seront supprimés du serveur. La progression restera sur ce téléphone.',
+        'Your online account, backup, friends and clans will be deleted from the server. Your progress stays on this phone.',
       ),
       [
         { text: tr('Annuler', 'Cancel'), style: 'cancel' },

@@ -24,11 +24,11 @@ type Onglet = 'jour' | 'semaine' | 'mois' | 'serie';
 
 const MESSAGES: Record<ErreurGroupe, () => string> = {
   nom: () => tr('Le nom doit faire 3 à 24 caractères (lettres, chiffres, espaces) et ne pas contenir de mot interdit.', 'The name must be 3 to 24 characters (letters, digits, spaces) and must not contain a forbidden word.'),
-  limite: () => tr('Vous avez atteint le nombre maximum de groupes (10).', 'You have reached the maximum number of groups (10).'),
-  trop_de_groupes: () => tr("Trop de groupes créés aujourd'hui. Réessayez demain.", 'Too many groups created today. Try again tomorrow.'),
+  limite: () => tr('Vous avez atteint le nombre maximum de clans (10).', 'You have reached the maximum number of clans (10).'),
+  trop_de_groupes: () => tr("Trop de clans créés aujourd'hui. Réessayez demain.", 'Too many clans created today. Try again tomorrow.'),
   code: () => tr('Le code doit faire 6 caractères.', 'The code must be 6 characters long.'),
-  introuvable: () => tr('Aucun groupe avec ce code.', 'No group with this code.'),
-  groupe_plein: () => tr('Ce groupe est complet (30 membres).', 'This group is full (30 members).'),
+  introuvable: () => tr('Aucun clan avec ce code.', 'No clan with this code.'),
+  groupe_plein: () => tr('Ce clan est complet (30 membres).', 'This clan is full (30 members).'),
   banni: () => tr('Action impossible avec ce compte.', 'Not possible with this account.'),
   reseau: () => tr('Connexion impossible. Réessayez plus tard.', 'Unable to connect. Please try again later.'),
   inconnue: () => tr('Une erreur est survenue. Réessayez plus tard.', 'Something went wrong. Please try again later.'),
@@ -123,15 +123,15 @@ export default function GroupesBloc({ jour }: Props) {
 
   function partager(d: DetailGroupe) {
     const texte = tr(
-      'Rejoins mon groupe « {nom} » sur Quizzle ! Code du groupe : {code}\n{lien}',
-      'Join my group “{nom}” on Quizzle! Group code: {code}\n{lien}',
+      'Rejoins mon clan « {nom} » sur Quizzle ! Code du clan : {code}\n{lien}',
+      'Join my clan “{nom}” on Quizzle! Clan code: {code}\n{lien}',
       { nom: d.nom, code: d.code, lien: LIEN_QUIZZLE },
     );
     Share.share({ message: texte }).catch(() => {});
   }
 
   function quitter(d: DetailGroupe) {
-    Alert.alert(tr('Quitter le groupe ?', 'Leave the group?'), d.nom, [
+    Alert.alert(tr('Quitter le clan ?', 'Leave the clan?'), d.nom, [
       { text: tr('Annuler', 'Cancel'), style: 'cancel' },
       {
         text: tr('Quitter', 'Leave'),
@@ -151,7 +151,7 @@ export default function GroupesBloc({ jour }: Props) {
     if (!d.moi_createur || l.moi) return;
     Alert.alert(l.nom, undefined, [
       {
-        text: tr('Retirer du groupe', 'Remove from group'),
+        text: tr('Retirer du clan', 'Remove from clan'),
         style: 'destructive',
         onPress: async () => {
           if (!(await quitterGroupe(d.id, l.id))) setMessage({ texte: MESSAGES.reseau(), erreur: true });
@@ -181,14 +181,14 @@ export default function GroupesBloc({ jour }: Props) {
     return (
       <>
         <TouchableOpacity onPress={() => { setOuvert(null); setDetail(null); charger(); }} style={styles.retour} accessibilityRole="button">
-          <Text style={styles.retourTexte}>‹ {tr('Mes groupes', 'My groups')}</Text>
+          <Text style={styles.retourTexte}>‹ {tr('Mes clans', 'My clans')}</Text>
         </TouchableOpacity>
         {!detail ? (
           <ActivityIndicator color={couleurs.accent} style={{ marginVertical: 16 }} />
         ) : (
           <View style={styles.section}>
             <Text style={styles.titreGroupe}>{detail.nom}</Text>
-            <Text style={styles.note}>{tr('Code du groupe', 'Group code')} : <Text style={styles.codeGroupe}>{detail.code}</Text></Text>
+            <Text style={styles.note}>{tr('Code du clan', 'Clan code')} : <Text style={styles.codeGroupe}>{detail.code}</Text></Text>
             <View style={styles.onglets}>
               {ONGLETS.map((o) => (
                 <TouchableOpacity key={o.id} style={[styles.onglet, onglet === o.id && styles.ongletActif]} onPress={() => setOnglet(o.id)} accessibilityRole="button">
@@ -215,7 +215,7 @@ export default function GroupesBloc({ jour }: Props) {
               <Text style={styles.boutonSecondaireTexte}>{tr('Inviter avec le code', 'Invite with the code')}</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => quitter(detail)} style={styles.quitter} accessibilityRole="button">
-              <Text style={styles.quitterTexte}>{tr('Quitter ce groupe', 'Leave this group')}</Text>
+              <Text style={styles.quitterTexte}>{tr('Quitter ce clan', 'Leave this clan')}</Text>
             </TouchableOpacity>
           </View>
         )}
@@ -226,9 +226,9 @@ export default function GroupesBloc({ jour }: Props) {
   return (
     <>
       <View style={styles.section}>
-        <Text style={styles.sectionTitre}>{tr('Mes groupes', 'My groups')}</Text>
+        <Text style={styles.sectionTitre}>{tr('Mes clans', 'My clans')}</Text>
         {!groupes || groupes.length === 0 ? (
-          <Text style={styles.note}>{tr('Pas encore de groupe. Créez-en un pour la famille ou les amis, ou rejoignez-en un avec son code.', 'No group yet. Create one for family or friends, or join one with its code.')}</Text>
+          <Text style={styles.note}>{tr('Pas encore de clan. Créez-en un pour la famille ou les amis, ou rejoignez-en un avec son code.', 'No clan yet. Create one for family or friends, or join one with its code.')}</Text>
         ) : (
           groupes.map((g) => (
             <TouchableOpacity key={g.id} style={styles.ligne} onPress={() => { setDetail(null); setOuvert(g.id); }} accessibilityRole="button">
@@ -243,12 +243,12 @@ export default function GroupesBloc({ jour }: Props) {
       </View>
 
       <View style={styles.section}>
-        <Text style={styles.sectionTitre}>{tr('Créer un groupe', 'Create a group')}</Text>
+        <Text style={styles.sectionTitre}>{tr('Créer un clan', 'Create a clan')}</Text>
         <TextInput
           style={styles.champ}
           value={nom}
           onChangeText={(t) => { setNom(t); setMessage(null); }}
-          placeholder={tr('Nom du groupe (ex. Famille)', 'Group name (e.g. Family)')}
+          placeholder={tr('Nom du clan (ex. Famille)', 'Clan name (e.g. Family)')}
           placeholderTextColor={couleurs.texteSecondaire}
           maxLength={24}
           editable={!envoi}
@@ -256,17 +256,17 @@ export default function GroupesBloc({ jour }: Props) {
           onSubmitEditing={creer}
         />
         <TouchableOpacity style={[styles.bouton, (envoi || nom.trim().length < 3) && styles.boutonInactif]} onPress={creer} disabled={envoi || nom.trim().length < 3} accessibilityRole="button">
-          <Text style={styles.boutonTexte}>{tr('Créer le groupe', 'Create group')}</Text>
+          <Text style={styles.boutonTexte}>{tr('Créer le clan', 'Create clan')}</Text>
         </TouchableOpacity>
       </View>
 
       <View style={styles.section}>
-        <Text style={styles.sectionTitre}>{tr('Rejoindre un groupe', 'Join a group')}</Text>
+        <Text style={styles.sectionTitre}>{tr('Rejoindre un clan', 'Join a clan')}</Text>
         <TextInput
           style={[styles.champ, { letterSpacing: 2 }]}
           value={code}
           onChangeText={(t) => { setCode(t.toUpperCase()); setMessage(null); }}
-          placeholder={tr('Code du groupe', 'Group code')}
+          placeholder={tr('Code du clan', 'Clan code')}
           placeholderTextColor={couleurs.texteSecondaire}
           maxLength={6}
           autoCapitalize="characters"

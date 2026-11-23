@@ -23,6 +23,14 @@ export default function NouveautesModal({ visible, onCompris, onSauvegarde }: Pr
       ),
     },
     {
+      emoji: '🛡️',
+      titre: tr('Créez votre clan', 'Create your clan'),
+      texte: tr(
+        'Réunissez votre famille, vos amis ou vos collègues dans un clan : un code à partager, un classement du jour et la fierté d’être le clan le plus malin. À retrouver dans l’onglet « Clans » de votre profil.',
+        'Bring your family, friends or coworkers together in a clan: a code to share, a daily ranking and the pride of being the smartest clan. Find it in the “Clans” tab of your profile.',
+      ),
+    },
+    {
       emoji: '🔔',
       titre: tr('Des notifications utiles', 'Useful notifications'),
       texte: tr(
