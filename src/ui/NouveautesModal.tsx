@@ -11,7 +11,7 @@ interface Props {
   onSauvegarde: () => void;
 }
 
-/** Écran affiché à l'ouverture après une mise à jour : présente les nouveautés (amis, notifications, sauvegarde). */
+/** Écran affiché à l'ouverture après une mise à jour : présente les nouveautés (amis, clans, événements, sauvegarde). */
 export default function NouveautesModal({ visible, onCompris, onSauvegarde }: Props) {
   const lignes: { emoji: string; titre: string; texte: string }[] = [
     {
@@ -31,11 +31,11 @@ export default function NouveautesModal({ visible, onCompris, onSauvegarde }: Pr
       ),
     },
     {
-      emoji: '🔔',
-      titre: tr('Des notifications utiles', 'Useful notifications'),
+      emoji: '🎄',
+      titre: tr('Un événement chaque mois', 'A new event every month'),
       texte: tr(
-        'Soyez prévenu d’une demande d’ami ou d’un défi. Vous pouvez les désactiver à tout moment dans « Profil ».',
-        'Get notified of a friend request or a challenge. You can turn them off anytime in “Profile”.',
+        'Un nouvel événement à thème arrive chaque mois, sans mise à jour : 20 étapes à deviner. Le prochain, « Noël autour du monde », commence le 1er décembre.',
+        'A new themed event arrives every month, with no update needed: 20 steps to guess. The next one, “Christmas Around the World”, starts on 1 December.',
       ),
     },
     {
