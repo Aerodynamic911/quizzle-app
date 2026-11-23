@@ -82,7 +82,7 @@ const BOSS_PIECES = 25;
 type Ecran =
   | { nom: 'accueil' }
   | { nom: 'preferences' }
-  | { nom: 'profil'; retour: 'accueil' | 'preferences' }
+  | { nom: 'profil'; retour: 'accueil' | 'preferences'; depuisNotification?: boolean }
   | { nom: 'jour' }
   | { nom: 'aventure' }
   | { nom: 'aventure-jeu'; niveau: number; essai: number; mystere: Mystere }
@@ -200,7 +200,7 @@ function Application() {
       if (e === 'active') actualiserAlertes();
     });
     const arreter = surToucheNotification(() => {
-      setEcran({ nom: 'profil', retour: 'accueil' });
+      setEcran({ nom: 'profil', retour: 'accueil', depuisNotification: true });
     });
     return () => {
       abo.remove();
@@ -502,6 +502,7 @@ function Application() {
           onRelever={relever}
           alertes={alertes}
           onAlertes={actualiserAlertes}
+          depuisNotification={ecran.depuisNotification}
         />
       )}
 

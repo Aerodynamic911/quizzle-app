@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
   ActivityIndicator,
   Alert,
@@ -34,6 +34,8 @@ interface Props {
   alertes?: Alertes;
   /** À appeler quand une demande ou un défi a été traité, pour rafraîchir la pastille de l'accueil. */
   onAlertes?: () => void;
+  /** Ouvert en touchant une notification : on défile jusqu'aux onglets Amis / Défis. */
+  depuisNotification?: boolean;
 }
 
 const MESSAGES_ERREUR: Record<ErreurPseudo, () => string> = {
@@ -50,9 +52,10 @@ const MESSAGES_ERREUR: Record<ErreurPseudo, () => string> = {
   inconnue: () => tr('Une erreur est survenue. Réessayez plus tard.', 'Something went wrong. Please try again later.'),
 };
 
-export default function ProfilEcran({ onRetour, jour, resultatDuJour, onRelever, alertes = AUCUNE_ALERTE, onAlertes }: Props) {
+export default function ProfilEcran({ onRetour, jour, resultatDuJour, onRelever, alertes = AUCUNE_ALERTE, onAlertes, depuisNotification }: Props) {
   const [onglet, setOnglet] = useState<'amis' | 'groupes' | 'defis'>(alertes.amis === 0 && alertes.defis > 0 ? 'defis' : 'amis');
   const [notifs, setNotifs] = useState<EtatNotifs>('jamais');
+  const defilement = useRef<ScrollView>(null);
   useEffect(() => {
     etatNotifications().then(setNotifs);
   }, []);
@@ -146,7 +149,7 @@ export default function ProfilEcran({ onRetour, jour, resultatDuJour, onRelever,
         <View style={styles.espaceur} />
       </View>
 
-      <ScrollView contentContainerStyle={styles.contenu} keyboardShouldPersistTaps="handled">
+      <ScrollView ref={defilement} contentContainerStyle={styles.contenu} keyboardShouldPersistTaps="handled">
         {chargement ? (
           <ActivityIndicator color={couleurs.accent} style={styles.attente} />
         ) : horsLigne ? (
@@ -279,7 +282,12 @@ export default function ProfilEcran({ onRetour, jour, resultatDuJour, onRelever,
             )}
 
             {profil && (
-              <View style={styles.onglets}>
+              <View
+                style={styles.onglets}
+                onLayout={(e) => {
+                  if (depuisNotification) defilement.current?.scrollTo({ y: Math.max(0, e.nativeEvent.layout.y - 12), animated: true });
+                }}
+              >
                 {(
                   [
                     ['amis', tr('Amis', 'Friends') + (alertes.amis > 0 ? ` (${alertes.amis})` : '')],
