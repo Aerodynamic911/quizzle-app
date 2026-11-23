@@ -19,6 +19,11 @@ const MESSAGES: Record<ErreurCompte, () => string> = {
       'Ce compte protège déjà une autre progression. Utilisez « Restaurer ma progression » pour la retrouver.',
       'This account already protects another game. Use “Restore my progress” to get it back.',
     ),
+  sauvegarde_vide: () =>
+    tr(
+      'Votre compte est reconnu, mais sa sauvegarde est vide : elle a été envoyée avant votre première partie.',
+      'Your account was found, but its backup is empty: it was sent before your first game.',
+    ),
   aucune_sauvegarde: () => tr('Aucune sauvegarde n’est liée à ce compte.', 'No backup is linked to this account.'),
   reseau: () => tr('Pas de connexion au serveur. Réessayez plus tard.', 'No connection to the server. Please try again later.'),
   inconnue: () => tr('Une erreur est survenue. Réessayez plus tard.', 'Something went wrong. Please try again later.'),

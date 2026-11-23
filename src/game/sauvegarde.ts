@@ -19,7 +19,7 @@ export const CLES_SAUVEGARDEES = [
 
 const CLE_ETAT = 'quizzle.sauvegarde.v1';
 /** Délai minimal entre deux envois automatiques. */
-const INTERVALLE_MS = 3 * 3600 * 1000;
+const INTERVALLE_MS = 10 * 60 * 1000;
 
 export type Fournisseur = 'apple' | 'google';
 
@@ -98,7 +98,7 @@ export async function sauvegarderMaintenant(): Promise<boolean> {
   }
 }
 
-/** Envoi automatique : au plus toutes les quelques heures, sans bruit en cas d'échec. */
+/** Envoi automatique : au plus toutes les 10 minutes (à l'ouverture et quand l'appli passe en arrière-plan), sans bruit en cas d'échec. */
 export async function sauvegarderSiBesoin(): Promise<void> {
   const etat = await etatSauvegarde();
   if (!etat) return;

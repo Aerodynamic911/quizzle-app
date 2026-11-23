@@ -13,7 +13,7 @@ export const FOURNISSEURS: Fournisseur[] = Platform.OS === 'ios' ? ['apple', 'go
 /** Compte proposé par défaut. */
 export const FOURNISSEUR: Fournisseur = FOURNISSEURS[0];
 
-export type ErreurCompte = 'annule' | 'indisponible' | 'deja_lie' | 'aucune_sauvegarde' | 'reseau' | 'inconnue';
+export type ErreurCompte = 'annule' | 'indisponible' | 'deja_lie' | 'aucune_sauvegarde' | 'sauvegarde_vide' | 'reseau' | 'inconnue';
 export type ResultatCompte = { ok: true } | { ok: false; erreur: ErreurCompte };
 
 /** Vrai quand la connexion est possible sur cet appareil. */
@@ -74,7 +74,11 @@ export async function restaurerProgression(fournisseur: Fournisseur = FOURNISSEU
     if (r.status === 404) return { ok: false, erreur: 'aucune_sauvegarde' };
     if (r.status !== 200 || !r.donnees?.id || !r.donnees?.secret) return { ok: false, erreur: 'inconnue' };
     // On ne remplace rien tant que la sauvegarde n'est pas valide.
-    if (r.donnees.sauvegarde && !(await appliquerInstantane(r.donnees.sauvegarde))) return { ok: false, erreur: 'inconnue' };
+    if (r.donnees.sauvegarde && !(await appliquerInstantane(r.donnees.sauvegarde))) {
+      // Le compte est reconnu mais la sauvegarde ne contient aucune donnée de jeu (envoyée avant la première partie).
+      const vide = Object.keys((r.donnees.sauvegarde as { cles?: object }).cles ?? {}).length === 0;
+      return { ok: false, erreur: vide ? 'sauvegarde_vide' : 'inconnue' };
+    }
     await AsyncStorage.setItem(
       'quizzle.profil-en-ligne.v1',
       JSON.stringify({ id: r.donnees.id, secret: r.donnees.secret, codeAmi: r.donnees.code_ami }),
