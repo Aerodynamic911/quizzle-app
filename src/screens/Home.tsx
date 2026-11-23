@@ -167,9 +167,9 @@ export default function Home({
         </TouchableOpacity>
         <TouchableOpacity style={[styles.mode, jourTermine && styles.modeEnAvant]} onPress={onEvenement} activeOpacity={0.85}>
           <Text style={styles.modeEmoji}>🎉</Text>
-          <Text style={styles.modeTitre}>{tr('Événements', 'Events')}</Text>
+          <Text style={styles.modeTitre}>{tr('Événement du mois', 'Event of the month')}</Text>
           <Text style={styles.modeDetail}>
-            {etapesFaites}/{etapesTotal} {tr('étapes', 'steps')}
+            {etapesFaites >= etapesTotal ? `✅ ${tr('Terminé', 'Completed')}` : `${etapesFaites}/${etapesTotal} ${tr('étapes', 'steps')}`}
           </Text>
         </TouchableOpacity>
       </View>

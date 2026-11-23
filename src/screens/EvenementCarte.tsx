@@ -1,10 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import { Animated, Easing, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { jouerEffet } from '../audio/effets';
-import { Evenement, NB_ETAPES } from '../data/evenements';
+import { Evenement, NB_ETAPES, prochainEvenement } from '../data/evenements';
 import { essaisEtape } from '../game/aventure';
 import { ProgressionEvenement } from '../game/progression';
-import { tr } from '../i18n';
+import { langue, tr } from '../i18n';
 import { couleurs, rayon } from '../theme';
 import Eclat from '../ui/Eclat';
 import EnteteEcran from '../ui/EnteteEcran';
@@ -36,6 +36,22 @@ function surDeuxLignes(titre: string): string {
     }
   }
   return `${mots.slice(0, meilleur).join(' ')}\n${mots.slice(meilleur).join(' ')}`;
+}
+
+
+/** Ce qu'on annonce au joueur sur la suite : le prochain événement s'il est déjà programmé, sinon « le mois prochain ». */
+function messageSuite(fini: boolean): string {
+  const prochain = prochainEvenement();
+  if (prochain) {
+    const date = new Date(prochain.debut + 'T12:00:00').toLocaleDateString(langue() === 'en' ? 'en-GB' : 'fr-FR', { day: 'numeric', month: 'long' });
+    return tr(
+      `🗓️ Prochain événement le ${date} : « ${prochain.evenement.titre} »`,
+      `🗓️ Next event on ${date}: “${prochain.evenement.titre}”`,
+    );
+  }
+  return fini
+    ? tr('🗓️ Bravo ! Un nouvel événement arrive le mois prochain : revenez le découvrir.', '🗓️ Well done! A new event arrives next month: come back to discover it.')
+    : tr('🗓️ Un nouvel événement arrive chaque mois.', '🗓️ A new event arrives every month.');
 }
 
 /** Carte d'un événement : 20 étapes en parcours, la suivante se débloque quand on réussit la précédente. */
@@ -85,7 +101,8 @@ export default function EvenementCarte({ evenement, progression, onJouerEtape, o
       <ScrollView contentContainerStyle={styles.contenu}>
         <Text style={styles.emoji}>{evenement.emoji}</Text>
         <Text style={[styles.titreTheme, { color: evenement.couleur }]}>{surDeuxLignes(evenement.titre)}</Text>
-        <Text style={styles.statut}>{fini ? tr('🏆 Événement terminé !', '🏆 Event completed!') : tr('Étape {n} sur {t}', 'Step {n} of {t}', { n: faites + 1, t: NB_ETAPES })}</Text>
+        <Text style={[styles.statut, { marginBottom: 6 }]}>{fini ? tr('🏆 Événement terminé !', '🏆 Event completed!') : tr('Étape {n} sur {t}', 'Step {n} of {t}', { n: faites + 1, t: NB_ETAPES })}</Text>
+        <Text style={styles.suite}>{messageSuite(fini)}</Text>
 
         {lignes.map((ligne, i) => (
           <View key={i} style={styles.ligne}>
@@ -151,6 +168,7 @@ const styles = StyleSheet.create({
   contenu: { padding: 20, paddingTop: 36, paddingBottom: 40 },
   emoji: { fontSize: 44, textAlign: 'center' },
   titreTheme: { fontSize: 28, fontWeight: '900', textAlign: 'center', lineHeight: 34, marginTop: 6 },
+  suite: { color: couleurs.texteSecondaire, fontSize: 14, fontWeight: '600', textAlign: 'center', marginBottom: 28, paddingHorizontal: 24 },
   statut: { color: couleurs.texte, fontSize: 16, fontWeight: '700', textAlign: 'center', marginTop: 12, marginBottom: 34 },
   ligne: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 14 },
   noeudZone: { width: '22%', aspectRatio: 1 },

@@ -8,6 +8,7 @@ import { notifier, rappelModeration } from './notifier';
 import { restaurerCompte, routeComptes } from './comptes';
 import { routeNotifications } from './notifPush';
 import { routeDefis } from './defis';
+import { routeContenus } from './contenus';
 import { routeGroupes } from './groupes';
 import { routeSociale } from './social';
 import {
@@ -132,6 +133,9 @@ export default {
     if (methode === 'GET' && pathname === '/v1/sante') {
       return json({ ok: true, service: 'quizzle-api', jour: jourParis() });
     }
+
+    // Contenus publies par le serveur (evenements) : publics, sans compte.
+    if (pathname === '/v1/contenus') return routeContenus(requete, env, jourParis());
 
     if (methode === 'POST' && pathname === '/v1/joueurs') {
       return creerJoueur(env);

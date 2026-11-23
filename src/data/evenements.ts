@@ -657,9 +657,50 @@ const histoire: Mystere[] = [
   },
 ];
 
-/** L'événement en cours change chaque mois, à tour de rôle. */
+/** Les événements livrés avec l'appli : ils défilent chaque mois quand le serveur n'en programme aucun. */
+const NB_INTEGRES = 2;
+
+/** Dates des événements publiés par le serveur (AAAA-MM-JJ, inclus). */
+const PLANNING: Record<string, { debut: string; fin: string }> = {};
+
+function cleLocale(d: Date): string {
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const j = String(d.getDate()).padStart(2, '0');
+  return `${d.getFullYear()}-${m}-${j}`;
+}
+
+/** Ajoute (ou remplace) un événement publié par le serveur. Les identifiants restent valables pour toujours. */
+export function enregistrerEvenementServeur(e: Evenement, debut: string, fin: string): void {
+  const i = EVENEMENTS.findIndex((x) => x.id === e.id);
+  if (i >= NB_INTEGRES) EVENEMENTS[i] = e;
+  else if (i < 0) EVENEMENTS.push(e);
+  PLANNING[e.id] = { debut, fin };
+}
+
+/** L'événement en cours : celui que le serveur programme pour aujourd'hui, sinon l'un des événements livrés avec l'appli, chaque mois à tour de rôle. */
 export function evenementEnCours(date: Date = new Date()): Evenement {
-  return EVENEMENTS[(date.getFullYear() * 12 + date.getMonth()) % EVENEMENTS.length];
+  const jour = cleLocale(date);
+  let choisi: Evenement | undefined;
+  let debutChoisi = '';
+  for (const e of EVENEMENTS) {
+    const p = PLANNING[e.id];
+    if (p && p.debut <= jour && jour <= p.fin && p.debut >= debutChoisi) {
+      choisi = e;
+      debutChoisi = p.debut;
+    }
+  }
+  return choisi ?? EVENEMENTS[(date.getFullYear() * 12 + date.getMonth()) % NB_INTEGRES];
+}
+
+/** Le prochain événement déjà programmé par le serveur (null s'il n'y en a pas encore). */
+export function prochainEvenement(date: Date = new Date()): { evenement: Evenement; debut: string } | null {
+  const jour = cleLocale(date);
+  let meilleur: { evenement: Evenement; debut: string } | null = null;
+  for (const e of EVENEMENTS) {
+    const p = PLANNING[e.id];
+    if (p && p.debut > jour && (!meilleur || p.debut < meilleur.debut)) meilleur = { evenement: e, debut: p.debut };
+  }
+  return meilleur;
 }
 
 export const EVENEMENTS: Evenement[] = [

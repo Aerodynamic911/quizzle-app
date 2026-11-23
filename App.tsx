@@ -48,6 +48,7 @@ import { skinDEvenement, skinParId } from './src/game/skins';
 import { SkinContext } from './src/ui/SkinContext';
 import RecompenseModal, { Recompense } from './src/ui/RecompenseModal';
 import NouveautesModal from './src/ui/NouveautesModal';
+import { chargerContenusLocaux, rafraichirContenus } from './src/game/contenus';
 import { fermerNouveautes, nouveautesAAfficher } from './src/game/nouveautes';
 import EvenementCarte from './src/screens/EvenementCarte';
 import Game from './src/screens/Game';
@@ -134,6 +135,8 @@ function Application() {
   const [amisOuvert, setAmisOuvert] = useState(false);
   // Écran de nouveautés après une mise à jour (au plus 3 ouvertures, voir src/game/nouveautes.ts).
   const [nouveautes, setNouveautes] = useState(false);
+  // Change quand le serveur apporte un nouveau contenu (événement) : l'écran se redessine.
+  const [, setVersionContenus] = useState(0);
   // La langue est appliquée avant chaque affichage : tous les écrans se rafraîchissent avec ce composant.
   definirLangue(prefs.langue);
   const musique = useMusique();
@@ -147,6 +150,8 @@ function Application() {
 
   /** Lit toutes les données du jeu sur le téléphone (au démarrage, et après une restauration de sauvegarde). */
   const chargerTout = async () => {
+      // Les événements téléchargés doivent être connus avant de lire la progression (sinon leurs étapes seraient oubliées).
+      await chargerContenusLocaux();
       const [s, j, p, pr, col, qu] = await Promise.all([
         chargerStats(),
         chargerJour(),
@@ -181,6 +186,17 @@ function Application() {
     });
     return () => abonnement.remove();
   }, []);
+
+  // Contenus du serveur : au démarrage, puis chaque fois que l'appli revient au premier plan.
+  useEffect(() => {
+    if (!pret) return;
+    const actualiser = () => {
+      rafraichirContenus().then((nouveau) => nouveau && setVersionContenus((v) => v + 1));
+    };
+    actualiser();
+    const abo = AppState.addEventListener('change', (e) => e === 'active' && actualiser());
+    return () => abo.remove();
+  }, [pret]);
 
   useEffect(() => {
     if (!pret) return;
