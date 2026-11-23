@@ -47,6 +47,8 @@ import { acheterGlacon, acheterJoker, acheterJokerPasser, acheterJokerTemps, ach
 import { skinDEvenement, skinParId } from './src/game/skins';
 import { SkinContext } from './src/ui/SkinContext';
 import RecompenseModal, { Recompense } from './src/ui/RecompenseModal';
+import NouveautesModal from './src/ui/NouveautesModal';
+import { fermerNouveautes, nouveautesAAfficher } from './src/game/nouveautes';
 import EvenementCarte from './src/screens/EvenementCarte';
 import Game from './src/screens/Game';
 import PreferencesEcran from './src/screens/Preferences';
@@ -130,6 +132,8 @@ function Application() {
   ecranRef.current = ecran;
   const [etatAvis, setEtatAvis] = useState<EtatAvis>('ouvert');
   const [amisOuvert, setAmisOuvert] = useState(false);
+  // Écran de nouveautés après une mise à jour (au plus 3 ouvertures, voir src/game/nouveautes.ts).
+  const [nouveautes, setNouveautes] = useState(false);
   // La langue est appliquée avant chaque affichage : tous les écrans se rafraîchissent avec ce composant.
   definirLangue(prefs.langue);
   const musique = useMusique();
@@ -177,6 +181,19 @@ function Application() {
     });
     return () => abonnement.remove();
   }, []);
+
+  useEffect(() => {
+    if (!pret) return;
+    let actif = true;
+    nouveautesAAfficher(stats).then((oui) => {
+      if (actif && oui) setNouveautes(true);
+    });
+    return () => {
+      actif = false;
+    };
+    // Une seule fois par ouverture de l'appli, quand les données sont chargées.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pret]);
 
   useEffect(() => {
     chargerTout();
@@ -821,6 +838,19 @@ function Application() {
         onFermer={() => setAmisOuvert(false)}
         onInviter={inviterUnAmi}
         onCode={lancerDefi}
+      />
+
+      <NouveautesModal
+        visible={nouveautes && recompenses.length === 0}
+        onCompris={() => {
+          setNouveautes(false);
+          fermerNouveautes();
+        }}
+        onSauvegarde={() => {
+          setNouveautes(false);
+          fermerNouveautes();
+          setEcran({ nom: 'preferences' });
+        }}
       />
 
       <RecompenseModal
