@@ -17,6 +17,7 @@
       "migrations_dir": "migrations"
     }
   ],
+  "vars": { "GOOGLE_CLIENT_ID": "934303941308-vvjdphi9lvhqpmiqrdrcjl3ejmhrc96h.apps.googleusercontent.com" },
   "triggers": { "crons": ["0 8 * * *"] },
   "observability": { "enabled": true }
 }
