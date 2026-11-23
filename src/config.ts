@@ -26,4 +26,4 @@ export const URL_SERVEUR = 'https://api.occitangames.com';
  * Identifiant client Google de type « Application Web » (Google Cloud › Identifiants), utilisé pour obtenir le jeton de connexion sur Android.
  * Tant qu'il est vide, la sauvegarde par compte Google reste masquée sur Android.
  */
-export const GOOGLE_WEB_CLIENT_ID: string = '';
+export const GOOGLE_WEB_CLIENT_ID: string = '934303941308-vvjdphi9lvhqpmiqrdrcjl3ejmhrc96h.apps.googleusercontent.com';
