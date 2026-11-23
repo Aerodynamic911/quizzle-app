@@ -79,11 +79,11 @@ TEXTES = {
         m2_h='L’aventure', m2_p='Une carte au trésor, huit décors et des niveaux sans fin. Tous les 30 niveaux, vous gagnez un nouveau titre.', m2_t='Nouveau titre',
         m3_h='Les événements', m3_p='Chaque mois, une aventure à thème en 20 étapes, avec une carte à collectionner à la clé.', m3_t='20 étapes',
         ages_h='Des énigmes pour chaque génération',
-        nouv_h='Nouveau dans la version 1.2', nouv_p='Plus de mystères, plus de façons de jouer et de quoi personnaliser votre mascotte.',
-        n1_t='Boutique de costumes', n1_p='Habillez votre mascotte : Reine du Nil, Roi-Soleil, Pirate, Astronaute… ou changez simplement sa couleur. Un aperçu agrandi avant l’achat, avec confirmation.',
-        n2_t='Tenues d’événement', n2_p='Deux nouvelles tenues à gagner : l’Explorateur (Merveilles du monde) et l’Empereur (Histoire).',
-        n3_t='Deux nouveaux jokers', n3_p='+10 secondes pour le Sprint, et « Passer » pour changer d’énigme quand on sèche.',
-        n4_t='Beaucoup plus de contenu', n4_p='De nombreux nouveaux mystères et de nouvelles photos pour le mode Image.',
+        nouv_h='Nouveau dans la version 1.3', nouv_p='Jouez entre amis : pseudo, résultats du jour, défis et notifications.',
+        n1_t='Un pseudo, un code ami', n1_p='Créez votre pseudo (facultatif) et partagez votre code ami. Ajoutez vos amis en quelques secondes.',
+        n2_t='Le résultat du jour de vos amis', n2_p='Voyez qui a trouvé le mystère du jour, en combien d’essais, et réagissez avec un emoji.',
+        n3_t='Défis et revanches', n3_p='Lancez un défi à un ami. En cas de revanche, vous jouez une autre énigme que celle que vous connaissez déjà.',
+        n4_t='Des notifications utiles', n4_p='Soyez prévenu d’une demande d’ami ou d’un défi. Vous pouvez les désactiver à tout moment dans le profil.',
         ages_p='Plus de 300 énigmes, de la tour Eiffel à Minecraft. Choisissez votre tranche d’âge dans les préférences : vous recevez les énigmes que tout le monde connaît, plus celles qui parlent à votre époque.',
         ages=[
             ('Tous publics', ['Tour Eiffel', 'Panda', 'Imprimerie', 'Cléopâtre']),
@@ -94,13 +94,13 @@ TEXTES = {
         ],
         ages_note='Le jeu est conçu pour les 13 ans et plus.',
         amis_h='Défiez vos amis',
-        amis_p='Après chaque partie, envoyez un code à un ami. Il joue la même énigme que vous et voit s’il fait mieux. Aucun compte à créer : le code suffit.',
+        amis_p='Après chaque partie, envoyez un code à un ami : il joue la même énigme que vous et voit s’il fait mieux. Avec un pseudo (facultatif), retrouvez vos amis, comparez vos résultats du jour et lancez-vous des défis.',
         bulle1='🎯 Défi Quizzle ! J’ai trouvé en 3 essais. Saurez-vous faire mieux ?', bulle2='Code du défi :',
         p1_t='Une série à protéger', p1_p='Les victoires d’affilée rapportent des jokers.',
         p2_t='Des jokers', p2_p='Un indice offert, sans compter comme un essai.',
         p3_t='Des glaçons', p3_p='Ils gardent votre série au frais si vous manquez un jour.',
         p4_t='Des cartes à collectionner', p4_p='Elles récompensent votre progression.',
-        fin_h='Prêt à deviner ?', fin_p='Quizzle est disponible sur iPhone et sur Android. Vos données restent sur votre téléphone : aucun compte à créer.',
+        fin_h='Prêt à deviner ?', fin_p='Quizzle est disponible sur iPhone et sur Android. Aucun compte ni connexion requis : votre progression reste sur votre téléphone, et le pseudo est facultatif.',
         pied_pub='Quizzle est un jeu édité par Occitan Games.', conf='Confidentialité', ment='Mentions légales', contact='Contact',
         url_conf='confidentialite.html', url_ment='mentions-legales.html', url_home='',
         indice='Indice',
@@ -123,11 +123,11 @@ TEXTES = {
         m2_h='The adventure', m2_p='A treasure map, eight settings and endless levels. Every 30 levels, you earn a new title.', m2_t='New title',
         m3_h='The events', m3_p='Every month, a themed adventure in 20 steps, with a collectible card at the end.', m3_t='20 steps',
         ages_h='Riddles for every generation',
-        nouv_h='New in version 1.2', nouv_p='More mysteries, more ways to play, and more ways to dress up your mascot.',
-        n1_t='Costume shop', n1_p='Dress up your mascot: Queen of the Nile, Sun King, Pirate, Astronaut… or just change its colour. A bigger preview before you buy, with a confirmation step.',
-        n2_t='Event outfits', n2_p='Two new outfits to earn: the Explorer (Wonders of the World) and the Emperor (History).',
-        n3_t='Two new jokers', n3_p='+10 seconds for Sprint, and “Skip” to switch riddles when you are stuck.',
-        n4_t='Much more content', n4_p='Many new mysteries and new pictures for the Picture mode.',
+        nouv_h='New in version 1.3', nouv_p='Play with friends: nicknames, daily results, challenges and notifications.',
+        n1_t='A nickname, a friend code', n1_p='Create your nickname (optional) and share your friend code. Add your friends in a few seconds.',
+        n2_t='Your friends’ daily results', n2_p='See who solved the daily mystery, in how many attempts, and react with an emoji.',
+        n3_t='Challenges and rematches', n3_p='Challenge a friend. For a rematch, you get a different riddle from the one you already know.',
+        n4_t='Useful notifications', n4_p='Get notified of a friend request or a challenge. You can turn them off at any time in your profile.',
         ages_p='Over 300 riddles, from the Eiffel Tower to Minecraft. Pick your age group in the settings: you get the riddles everyone knows, plus the ones that speak to your era.',
         ages=[
             ('All ages', ['Eiffel Tower', 'Panda', 'Printing press', 'Cleopatra']),
@@ -138,13 +138,13 @@ TEXTES = {
         ],
         ages_note='The game is designed for ages 13 and over.',
         amis_h='Challenge your friends',
-        amis_p='After each game, send a code to a friend. They play the same riddle as you and see if they do better. No account to create: the code is all it takes.',
+        amis_p='After each game, send a code to a friend: they play the same riddle as you and see if they do better. With a nickname (optional), find your friends, compare your daily results and challenge each other.',
         bulle1='🎯 Quizzle challenge! I found it in 3 attempts. Can you do better?', bulle2='Challenge code:',
         p1_t='A streak to protect', p1_p='Winning in a row earns you jokers.',
         p2_t='Jokers', p2_p='A free clue that does not count as an attempt.',
         p3_t='Ice cubes', p3_p='They keep your streak on ice if you miss a day.',
         p4_t='Collectible cards', p4_p='They reward your progress.',
-        fin_h='Ready to guess?', fin_p='Quizzle is available on iPhone and Android. Your data stays on your phone: no account to create.',
+        fin_h='Ready to guess?', fin_p='Quizzle is available on iPhone and Android. No account or sign-in required: your progress stays on your phone, and the nickname is optional.',
         pied_pub='Quizzle is a game published by Occitan Games.', conf='Privacy', ment='Legal notice', contact='Contact',
         url_conf='privacy.html', url_ment='legal.html', url_home='',
         indice='Clue',
@@ -264,10 +264,10 @@ def page_accueil(t):
 <section id="nouveautes"><div class="conteneur">
 <div class="intro-section"><h2>{t['nouv_h']}</h2><p>{t['nouv_p']}</p></div>
 <div class="petits">
-<div class="petit"><span class="emoji" aria-hidden="true">👑</span><div><strong>{t['n1_t']}</strong><span>{t['n1_p']}</span></div></div>
-<div class="petit"><span class="emoji" aria-hidden="true">🧭</span><div><strong>{t['n2_t']}</strong><span>{t['n2_p']}</span></div></div>
-<div class="petit"><span class="emoji" aria-hidden="true">⏱️</span><div><strong>{t['n3_t']}</strong><span>{t['n3_p']}</span></div></div>
-<div class="petit"><span class="emoji" aria-hidden="true">📸</span><div><strong>{t['n4_t']}</strong><span>{t['n4_p']}</span></div></div>
+<div class="petit"><span class="emoji" aria-hidden="true">👥</span><div><strong>{t['n1_t']}</strong><span>{t['n1_p']}</span></div></div>
+<div class="petit"><span class="emoji" aria-hidden="true">📅</span><div><strong>{t['n2_t']}</strong><span>{t['n2_p']}</span></div></div>
+<div class="petit"><span class="emoji" aria-hidden="true">⚔️</span><div><strong>{t['n3_t']}</strong><span>{t['n3_p']}</span></div></div>
+<div class="petit"><span class="emoji" aria-hidden="true">🔔</span><div><strong>{t['n4_t']}</strong><span>{t['n4_p']}</span></div></div>
 </div>
 </div></section>
 
