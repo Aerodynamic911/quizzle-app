@@ -142,6 +142,13 @@ export const PAGE_ADMIN = `<!doctype html>
       .catch(function (e) { message(e.message); });
   }
 
+  function effacer(id, pseudo) {
+    if (!confirm('Supprimer définitivement toutes les données de « ' + pseudo + ' » ? Cette action est irréversible.')) return;
+    appel('/admin/pseudos/' + id, { method: 'DELETE' })
+      .then(function () { message('Données supprimées'); pseudos(); chiffres(); signalements(); })
+      .catch(function (e) { message(e.message); });
+  }
+
   function pseudos() {
     var url = '/admin/pseudos?statut=' + encodeURIComponent($('statut').value) + '&q=' + encodeURIComponent($('recherche').value);
     appel(url).then(function (d) {
@@ -162,6 +169,7 @@ export const PAGE_ADMIN = `<!doctype html>
         if (p.statut !== 'banni') actions.appendChild(bouton('Bannir', 'ban', function () {
           if (confirm('Bannir ce joueur ?')) decider(p.id, 'bannir');
         }));
+        actions.appendChild(bouton('Supprimer les données', 'ban', function () { effacer(p.id, p.pseudo); }));
         ligne.appendChild(gauche);
         ligne.appendChild(actions);
         carte.appendChild(ligne);
@@ -185,6 +193,7 @@ export const PAGE_ADMIN = `<!doctype html>
         actions.appendChild(bouton('Bannir', 'ban', function () {
           if (confirm('Bannir ce joueur ?')) decider(s.id, 'bannir');
         }));
+        actions.appendChild(bouton('Supprimer les données', 'ban', function () { effacer(s.id, s.pseudo || '(sans pseudo)'); }));
         actions.appendChild(bouton('Classer', '', function () {
           appel('/admin/signalements/' + s.id + '/traiter', { method: 'POST' })
             .then(function () { signalements(); chiffres(); })
