@@ -27,3 +27,9 @@ export const URL_SERVEUR = 'https://api.occitangames.com';
  * Tant qu'il est vide, la sauvegarde par compte Google reste masquée sur Android.
  */
 export const GOOGLE_WEB_CLIENT_ID: string = '934303941308-vvjdphi9lvhqpmiqrdrcjl3ejmhrc96h.apps.googleusercontent.com';
+
+/**
+ * Identifiant client Google de type « iOS » (Google Cloud › Clients › Quizzle iPhone) : permet la connexion Google sur iPhone,
+ * donc le transfert de progression entre Android et iPhone. Son « schéma d'URL inversé » est déclaré dans app.json.
+ */
+export const GOOGLE_IOS_CLIENT_ID: string = '934303941308-d87kr4tjgmd9uf68imie51a0m9pik0fk.apps.googleusercontent.com';

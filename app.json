@@ -37,6 +37,7 @@
     "plugins": [
       "expo-audio",
       "expo-apple-authentication",
+      ["@react-native-google-signin/google-signin", { "iosUrlScheme": "com.googleusercontent.apps.934303941308-d87kr4tjgmd9uf68imie51a0m9pik0fk" }],
       [
         "expo-build-properties",
         {

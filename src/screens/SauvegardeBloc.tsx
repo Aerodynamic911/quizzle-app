@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { ActivityIndicator, Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { FOURNISSEUR, ErreurCompte, lierCompte, restaurerProgression, sauvegardeDisponible } from '../game/compteLie';
-import { EtatSauvegarde, etatSauvegarde, sauvegarderMaintenant } from '../game/sauvegarde';
+import { FOURNISSEURS, ErreurCompte, lierCompte, restaurerProgression, sauvegardeDisponible } from '../game/compteLie';
+import { EtatSauvegarde, Fournisseur, etatSauvegarde, sauvegarderMaintenant } from '../game/sauvegarde';
 import { supprimerProfil } from '../game/serveur';
 import { tr } from '../i18n';
 import { couleurs, rayon } from '../theme';
@@ -24,7 +24,7 @@ const MESSAGES: Record<ErreurCompte, () => string> = {
   inconnue: () => tr('Une erreur est survenue. Réessayez plus tard.', 'Something went wrong. Please try again later.'),
 };
 
-const nomCompte = () => (FOURNISSEUR === 'apple' ? 'Apple' : 'Google');
+const nomCompte = (f: Fournisseur) => (f === 'apple' ? 'Apple' : 'Google');
 
 function formaterDate(iso: string | null): string {
   if (!iso) return tr('à l’instant', 'just now');
@@ -52,10 +52,10 @@ export default function SauvegardeBloc({ onRestaure }: Props) {
 
   if (!dispo && !etat) return null;
 
-  async function lier() {
+  async function lier(f: Fournisseur) {
     setOccupe(true);
     setMessage('');
-    const r = await lierCompte();
+    const r = await lierCompte(f);
     setOccupe(false);
     if (!r.ok) setMessage(MESSAGES[r.erreur]());
     await rafraichir();
@@ -70,7 +70,7 @@ export default function SauvegardeBloc({ onRestaure }: Props) {
     await rafraichir();
   }
 
-  function restaurer() {
+  function restaurer(f: Fournisseur) {
     Alert.alert(
       tr('Restaurer ma progression', 'Restore my progress'),
       tr(
@@ -84,7 +84,7 @@ export default function SauvegardeBloc({ onRestaure }: Props) {
           onPress: async () => {
             setOccupe(true);
             setMessage('');
-            const r = await restaurerProgression();
+            const r = await restaurerProgression(f);
             setOccupe(false);
             if (r.ok) {
               await rafraichir();
@@ -129,8 +129,8 @@ export default function SauvegardeBloc({ onRestaure }: Props) {
         <>
           <Text style={styles.note}>
             {tr(
-              `✅ Progression sauvegardée avec votre compte ${nomCompte()}.\nDernier envoi : ${formaterDate(etat.derniere)}`,
-              `✅ Progress backed up with your ${nomCompte()} account.\nLast backup: ${formaterDate(etat.derniere)}`,
+              `✅ Progression sauvegardée avec votre compte ${nomCompte(etat.fournisseur)}.\nDernier envoi : ${formaterDate(etat.derniere)}`,
+              `✅ Progress backed up with your ${nomCompte(etat.fournisseur)} account.\nLast backup: ${formaterDate(etat.derniere)}`,
             )}
           </Text>
           <TouchableOpacity style={styles.bouton} onPress={sauvegarder} disabled={occupe} activeOpacity={0.85} accessibilityRole="button">
@@ -144,18 +144,24 @@ export default function SauvegardeBloc({ onRestaure }: Props) {
         <>
           <Text style={styles.note}>
             {tr(
-              `Gardez votre progression si vous changez de téléphone : liez-la à votre compte ${nomCompte()}. Nous ne recevons ni votre nom ni votre e-mail.`,
-              `Keep your progress if you change phones: link it to your ${nomCompte()} account. We receive neither your name nor your email.`,
+              `Gardez votre progression si vous changez de téléphone (même d’Android à iPhone) : liez-la à votre compte ${FOURNISSEURS.map(nomCompte).join(' ou ')}. Nous ne recevons ni votre nom ni votre e-mail.`,
+              `Keep your progress if you change phones (even from Android to iPhone): link it to your ${FOURNISSEURS.map(nomCompte).join(' or ')} account. We receive neither your name nor your email.`,
             )}
           </Text>
-          <TouchableOpacity style={styles.bouton} onPress={lier} disabled={occupe} activeOpacity={0.85} accessibilityRole="button">
-            <Text style={styles.boutonTexte}>
-              ☁️ {tr(`Sauvegarder avec ${nomCompte()}`, `Back up with ${nomCompte()}`)}
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={[styles.bouton, styles.boutonSecondaire]} onPress={restaurer} disabled={occupe} activeOpacity={0.85} accessibilityRole="button">
-            <Text style={styles.boutonTexte}>📲 {tr('Restaurer ma progression', 'Restore my progress')}</Text>
-          </TouchableOpacity>
+          {FOURNISSEURS.map((f) => (
+            <TouchableOpacity key={`lier-${f}`} style={styles.bouton} onPress={() => lier(f)} disabled={occupe} activeOpacity={0.85} accessibilityRole="button">
+              <Text style={styles.boutonTexte}>
+                ☁️ {tr(`Sauvegarder avec ${nomCompte(f)}`, `Back up with ${nomCompte(f)}`)}
+              </Text>
+            </TouchableOpacity>
+          ))}
+          {FOURNISSEURS.map((f) => (
+            <TouchableOpacity key={`restaurer-${f}`} style={[styles.bouton, styles.boutonSecondaire]} onPress={() => restaurer(f)} disabled={occupe} activeOpacity={0.85} accessibilityRole="button">
+              <Text style={styles.boutonTexte}>
+                📲 {tr(`Restaurer avec ${nomCompte(f)}`, `Restore with ${nomCompte(f)}`)}
+              </Text>
+            </TouchableOpacity>
+          ))}
         </>
       )}
       {occupe && <ActivityIndicator color={couleurs.accent} style={{ marginTop: 10 }} />}
