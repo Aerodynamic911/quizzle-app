@@ -338,18 +338,19 @@ def svg_evenement(titre):
 PRIVACY = {
     'fr': dict(
         titre='Politique de confidentialité — Quizzle', desc='Comment Quizzle traite vos données : sur votre appareil, et sur nos serveurs uniquement si vous créez un profil en ligne.',
-        h1='Politique de confidentialité', maj='Dernière mise à jour : 10 novembre 2026',
+        h1='Politique de confidentialité', maj='Dernière mise à jour : 23 novembre 2026',
         corps="""
 <p>Quizzle est un jeu mobile édité par Occitan Games. Cette page explique, simplement, ce que l’application fait de vos données.</p>
 
 <h2>En résumé</h2>
-<p>Vous pouvez jouer à Quizzle sans compte : dans ce cas, rien n’est envoyé à un serveur et votre progression reste sur votre téléphone. Si vous choisissez un pseudo pour jouer avec des amis, un profil en ligne anonyme est créé et certaines données sont alors enregistrées sur nos serveurs, comme décrit ci-dessous. Il n’y a ni publicité, ni suivi publicitaire, ni vente de données.</p>
+<p>Vous pouvez jouer à Quizzle sans compte : dans ce cas, rien n’est envoyé à un serveur et votre progression reste sur votre téléphone. Si vous choisissez un pseudo pour jouer avec des amis, un profil en ligne anonyme est créé et certaines données sont alors enregistrées sur nos serveurs, comme décrit ci-dessous. Vous pouvez aussi, si vous le souhaitez, lier votre compte Google ou Apple pour sauvegarder votre progression et la retrouver sur un nouveau téléphone. Il n’y a ni publicité, ni suivi publicitaire, ni vente de données.</p>
 
 <h2>Ce qui est enregistré sur votre appareil</h2>
 <ul>
 <li>votre progression (niveaux, étapes d’événements, cartes, jokers, glaçons, pièces) ;</li>
 <li>vos statistiques de jeu (parties, victoires, séries) ;</li>
-<li>vos préférences (langue, difficulté, tranche d’âge).</li>
+<li>vos préférences (langue, difficulté, tranche d’âge) ;</li>
+<li>les événements à thème téléchargés depuis notre serveur, pour pouvoir jouer sans connexion.</li>
 </ul>
 <p>Ces informations sont stockées dans la mémoire de l’application, sur votre téléphone. Elles disparaissent si vous désinstallez l’application ou effacez ses données.</p>
 
@@ -357,22 +358,32 @@ PRIVACY = {
 <p>Le profil en ligne est créé uniquement lorsque vous choisissez un pseudo dans l’écran « Mon profil ». Il n’y a ni adresse e-mail, ni numéro de téléphone, ni nom réel : un identifiant aléatoire est généré sur votre téléphone. Le serveur ne conserve de votre code secret qu’une empreinte (hachage). Sont alors enregistrés :</p>
 <ul>
 <li>votre pseudo, et un code ami à partager si vous le souhaitez ;</li>
-<li>votre résultat au mystère du jour (nombre d’essais, réussite, score), visible de vos amis et des membres de vos groupes ;</li>
-<li>vos demandes d’amis, vos amis, vos groupes, vos défis et vos réactions, ainsi que les personnes que vous bloquez ou signalez ;</li>
+<li>votre résultat au mystère du jour (nombre d’essais, réussite, score), visible de vos amis et des membres de vos clans ;</li>
+<li>vos demandes d’amis, vos amis, vos clans, vos défis et vos réactions, ainsi que les personnes que vous bloquez ou signalez ;</li>
 <li>si vous activez les notifications : un jeton de notification propre à votre téléphone et votre langue.</li>
 </ul>
 <p>Ces données servent uniquement à faire fonctionner ces fonctionnalités (voir vos amis, les défis, les classements, les notifications) et à modérer les pseudos : les pseudos peuvent être vérifiés par l’éditeur, et un pseudo signalé par plusieurs joueurs est masqué. Elles sont conservées tant que votre profil existe.</p>
+
+<h2>Sauvegarde avec votre compte Google ou Apple (facultatif)</h2>
+<p>Dans « Préférences », vous pouvez lier votre compte Google (Android et iPhone) ou Apple (iPhone) pour sauvegarder votre progression et la retrouver si vous changez de téléphone, même d’Android à iPhone. Cette fonction est facultative : sans elle, rien n’est sauvegardé en ligne.</p>
+<p>Lorsque vous liez un compte, notre serveur reçoit de Google ou d’Apple un identifiant anonyme propre à Quizzle. Nous ne recevons ni votre adresse e-mail, ni votre nom, ni votre photo. Nous enregistrons cet identifiant, ainsi qu’une copie de votre progression (niveaux, étapes d’événements, collection, pièces, jokers, costumes, statistiques, quêtes et préférences de jeu), mise à jour automatiquement.</p>
+<p>Lorsque vous restaurez votre progression sur un nouveau téléphone, ce téléphone devient le seul à pouvoir mettre à jour la sauvegarde ; l’ancien perd cet accès.</p>
+<p>Ces données servent uniquement à la sauvegarde et à la restauration. Elles sont conservées tant que votre profil existe et sont effacées par le bouton « Supprimer mes données en ligne ».</p>
+
+<h2>Événements à thème</h2>
+<p>L’application télécharge les événements à thème depuis notre serveur à l’ouverture. Cette requête ne contient aucune donnée personnelle ; comme pour toute connexion, l’adresse IP est traitée techniquement par l’hébergeur.</p>
 
 <h2>Notifications</h2>
 <p>Les notifications (demande d’ami reçue, demande acceptée, défi reçu) sont facultatives : l’application demande votre autorisation et vous pouvez les couper à tout moment depuis « Mon profil » ou depuis les réglages de votre téléphone. Elles sont acheminées par le service de notifications d’Expo puis par les services de notification d’Apple (iPhone) ou de Google (Android).</p>
 
 <h2>Supprimer vos données en ligne</h2>
-<p>Le bouton « Supprimer mes données en ligne » de l’écran « Mon profil » efface immédiatement votre profil et toutes les données associées sur nos serveurs (pseudo, résultats, amis, groupes, défis, réactions, jeton de notification). Vous pouvez aussi écrire à <a href="mailto:contact@occitangames.com">contact@occitangames.com</a>.</p>
+<p>Le bouton « Supprimer mes données en ligne » de l’écran « Mon profil » efface immédiatement votre profil et toutes les données associées sur nos serveurs (pseudo, résultats, amis, clans, défis, réactions, jeton de notification, compte lié et sauvegarde). Vous pouvez aussi écrire à <a href="mailto:contact@occitangames.com">contact@occitangames.com</a>.</p>
 
 <h2>Prestataires techniques</h2>
 <ul>
 <li>Cloudflare (hébergement du serveur et de la base de données, et de ce site) : comme tout hébergeur, il traite techniquement les adresses IP des connexions ;</li>
-<li>Expo, Apple et Google, uniquement pour l’acheminement des notifications.</li>
+<li>Expo, Apple et Google, pour l’acheminement des notifications ;</li>
+<li>Apple et Google, uniquement si vous choisissez de lier votre compte (connexion).</li>
 </ul>
 <p>Aucune donnée n’est vendue ni utilisée à des fins publicitaires.</p>
 
@@ -403,18 +414,19 @@ PRIVACY = {
 """),
     'en': dict(
         titre='Privacy policy — Quizzle', desc='How Quizzle handles your data: on your device, and on our servers only if you create an online profile.',
-        h1='Privacy policy', maj='Last updated: 10 November 2026',
+        h1='Privacy policy', maj='Last updated: 23 November 2026',
         corps="""
 <p>Quizzle is a mobile game published by Occitan Games. This page explains, simply, what the app does with your data.</p>
 
 <h2>In short</h2>
-<p>You can play Quizzle without an account: in that case nothing is sent to a server and your progress stays on your phone. If you choose a nickname to play with friends, an anonymous online profile is created and some data is then stored on our servers, as described below. There are no ads, no advertising tracking and no sale of data.</p>
+<p>You can play Quizzle without an account: in that case nothing is sent to a server and your progress stays on your phone. If you choose a nickname to play with friends, an anonymous online profile is created and some data is then stored on our servers, as described below. You can also, if you wish, link your Google or Apple account to back up your progress and get it back on a new phone. There are no ads, no advertising tracking and no sale of data.</p>
 
 <h2>What is stored on your device</h2>
 <ul>
 <li>your progress (levels, event steps, cards, jokers, ice cubes, coins);</li>
 <li>your game statistics (games, wins, streaks);</li>
-<li>your preferences (language, difficulty, age group).</li>
+<li>your preferences (language, difficulty, age group);</li>
+<li>themed events downloaded from our server, so you can play offline.</li>
 </ul>
 <p>This information is stored in the app’s storage, on your phone. It disappears if you uninstall the app or clear its data.</p>
 
@@ -422,22 +434,32 @@ PRIVACY = {
 <p>The online profile is created only when you choose a nickname in the “My profile” screen. There is no e-mail address, phone number or real name: a random identifier is generated on your phone. The server keeps only a hash of your secret code. The following is then stored:</p>
 <ul>
 <li>your nickname, and a friend code you may share;</li>
-<li>your result for the daily mystery (number of tries, success, score), visible to your friends and to the members of your groups;</li>
-<li>your friend requests, friends, groups, challenges and reactions, and the players you block or report;</li>
+<li>your result for the daily mystery (number of tries, success, score), visible to your friends and to the members of your clans;</li>
+<li>your friend requests, friends, clans, challenges and reactions, and the players you block or report;</li>
 <li>if you turn on notifications: a notification token specific to your phone, and your language.</li>
 </ul>
 <p>This data is used only to make these features work (seeing your friends, challenges, leaderboards, notifications) and to moderate nicknames: nicknames may be reviewed by the publisher, and a nickname reported by several players is hidden. It is kept as long as your profile exists.</p>
+
+<h2>Backup with your Google or Apple account (optional)</h2>
+<p>In “Settings”, you can link your Google account (Android and iPhone) or Apple account (iPhone) to back up your progress and get it back if you change phones, even from Android to iPhone. This is optional: without it, nothing is backed up online.</p>
+<p>When you link an account, our server receives from Google or Apple an anonymous identifier specific to Quizzle. We do not receive your e-mail address, your name or your photo. We store this identifier and a copy of your progress (levels, event steps, collection, coins, jokers, outfits, statistics, quests and game settings), updated automatically.</p>
+<p>When you restore your progress on a new phone, that phone becomes the only one able to update the backup; the old one loses this access.</p>
+<p>This data is used only for backup and restore. It is kept as long as your profile exists and is erased by the “Delete my online data” button.</p>
+
+<h2>Themed events</h2>
+<p>The app downloads themed events from our server when it opens. This request contains no personal data; as with any connection, the IP address is technically processed by the host.</p>
 
 <h2>Notifications</h2>
 <p>Notifications (friend request received, request accepted, challenge received) are optional: the app asks for your permission and you can turn them off at any time from “My profile” or from your phone’s settings. They are delivered through Expo’s notification service and then through Apple’s (iPhone) or Google’s (Android) notification services.</p>
 
 <h2>Deleting your online data</h2>
-<p>The “Delete my online data” button in the “My profile” screen immediately erases your profile and all associated data on our servers (nickname, results, friends, groups, challenges, reactions, notification token). You can also write to <a href="mailto:contact@occitangames.com">contact@occitangames.com</a>.</p>
+<p>The “Delete my online data” button in the “My profile” screen immediately erases your profile and all associated data on our servers (nickname, results, friends, clans, challenges, reactions, notification token, linked account and backup). You can also write to <a href="mailto:contact@occitangames.com">contact@occitangames.com</a>.</p>
 
 <h2>Technical providers</h2>
 <ul>
 <li>Cloudflare (hosting of the server, the database and this website): like any host, it technically processes connection IP addresses;</li>
-<li>Expo, Apple and Google, only to deliver notifications.</li>
+<li>Expo, Apple and Google, to deliver notifications;</li>
+<li>Apple and Google, only if you choose to link your account (sign-in).</li>
 </ul>
 <p>No data is sold or used for advertising.</p>
 
