@@ -79,7 +79,7 @@ TEXTES = {
         m2_h='L’aventure', m2_p='Une carte au trésor, huit décors et des niveaux sans fin. Tous les 30 niveaux, vous gagnez un nouveau titre.', m2_t='Nouveau titre',
         m3_h='Les événements', m3_p='Chaque mois, une aventure à thème en 20 étapes, avec une carte à collectionner à la clé.', m3_t='20 étapes',
         ages_h='Des énigmes pour chaque génération',
-        nouv_h='Nouveau dans la version 1.4', nouv_p='Jouez entre amis, créez votre clan, sauvegardez votre progression et profitez d’un événement à thème chaque mois.',
+        nouv_tag='Nouveau', nouv_ban='Version 1.4 : amis, clans, sauvegarde et événements à thème', nouv_h='Nouveau dans la version 1.4', nouv_p='Jouez entre amis, créez votre clan, sauvegardez votre progression et profitez d’un événement à thème chaque mois.',
         n1_t='Un pseudo, un code ami', n1_p='Créez votre pseudo (facultatif) et partagez votre code ami. Ajoutez vos amis en quelques secondes.',
         n2_t='Le résultat du jour de vos amis', n2_p='Voyez qui a trouvé le mystère du jour, en combien d’essais, et réagissez avec un emoji.',
         n3_t='Défis, revanches et notifications', n3_p='Lancez un défi à un ami. En cas de revanche, vous jouez une autre énigme que celle que vous connaissez déjà. Des notifications vous préviennent d’une demande d’ami ou d’un défi ; vous les désactivez quand vous voulez.',
@@ -125,7 +125,7 @@ TEXTES = {
         m2_h='The adventure', m2_p='A treasure map, eight settings and endless levels. Every 30 levels, you earn a new title.', m2_t='New title',
         m3_h='The events', m3_p='Every month, a themed adventure in 20 steps, with a collectible card at the end.', m3_t='20 steps',
         ages_h='Riddles for every generation',
-        nouv_h='New in version 1.4', nouv_p='Play with friends, create your clan, back up your progress and enjoy a themed event every month.',
+        nouv_tag='New', nouv_ban='Version 1.4: friends, clans, backup and themed events', nouv_h='New in version 1.4', nouv_p='Play with friends, create your clan, back up your progress and enjoy a themed event every month.',
         n1_t='A nickname, a friend code', n1_p='Create your nickname (optional) and share your friend code. Add your friends in a few seconds.',
         n2_t='Your friends’ daily results', n2_p='See who solved the daily mystery, in how many attempts, and react with an emoji.',
         n3_t='Challenges, rematches and notifications', n3_p='Challenge a friend. For a rematch, you get a different riddle from the one you already know. Notifications tell you about a friend request or a challenge; you can turn them off at any time.',
@@ -224,6 +224,7 @@ def page_accueil(t):
         '<li><h3>%s</h3><p class="sujets">%s</p></li>' % (nom, '<span aria-hidden="true">/</span>'.join(s for s in [' ' + x + ' ' for x in sujets]))
         for nom, sujets in t['ages'])
     html += f'''<main id="contenu">
+<a class="bandeau-nouv" href="#nouveautes"><span class="pastille-nouv">{t['nouv_tag']}</span><span>{t['nouv_ban']}</span><span aria-hidden="true">↓</span></a>
 <section class="heros"><div class="conteneur">
 <div>
 {mot_marque()}

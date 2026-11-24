@@ -192,3 +192,10 @@ section { padding: clamp(44px, 7vw, 84px) 0; }
 }
 
 [hidden] { display: none !important; }
+
+/* Bandeau « Nouveau » vers la section des nouveautés (pulsation douce) */
+.bandeau-nouv { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; width: fit-content; max-width: calc(100% - 32px); margin: 6px auto 0; padding: 10px 20px; border: 2px solid var(--accent); border-radius: 999px; background: rgba(245, 185, 66, 0.12); color: var(--texte); font-weight: 600; text-align: center; text-decoration: none; animation: pulse-nouv 2s ease-in-out infinite; }
+.bandeau-nouv:hover { background: rgba(245, 185, 66, 0.25); }
+.pastille-nouv { padding: 3px 12px; border-radius: 999px; background: var(--accent); color: var(--fond); font-size: 0.8rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
+@keyframes pulse-nouv { 0%, 100% { box-shadow: 0 0 0 0 rgba(245, 185, 66, 0.55); } 50% { box-shadow: 0 0 0 12px rgba(245, 185, 66, 0); } }
+@media (prefers-reduced-motion: reduce) { .bandeau-nouv { animation: none; } }
