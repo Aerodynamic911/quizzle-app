@@ -79,11 +79,13 @@ TEXTES = {
         m2_h='L’aventure', m2_p='Une carte au trésor, huit décors et des niveaux sans fin. Tous les 30 niveaux, vous gagnez un nouveau titre.', m2_t='Nouveau titre',
         m3_h='Les événements', m3_p='Chaque mois, une aventure à thème en 20 étapes, avec une carte à collectionner à la clé.', m3_t='20 étapes',
         ages_h='Des énigmes pour chaque génération',
-        nouv_h='Nouveau dans la version 1.3', nouv_p='Jouez entre amis : pseudo, résultats du jour, défis et notifications.',
+        nouv_h='Nouveau dans la version 1.4', nouv_p='Jouez entre amis, créez votre clan, sauvegardez votre progression et profitez d’un événement à thème chaque mois.',
         n1_t='Un pseudo, un code ami', n1_p='Créez votre pseudo (facultatif) et partagez votre code ami. Ajoutez vos amis en quelques secondes.',
         n2_t='Le résultat du jour de vos amis', n2_p='Voyez qui a trouvé le mystère du jour, en combien d’essais, et réagissez avec un emoji.',
-        n3_t='Défis et revanches', n3_p='Lancez un défi à un ami. En cas de revanche, vous jouez une autre énigme que celle que vous connaissez déjà.',
-        n4_t='Des notifications utiles', n4_p='Soyez prévenu d’une demande d’ami ou d’un défi. Vous pouvez les désactiver à tout moment dans le profil.',
+        n3_t='Défis, revanches et notifications', n3_p='Lancez un défi à un ami. En cas de revanche, vous jouez une autre énigme que celle que vous connaissez déjà. Des notifications vous préviennent d’une demande d’ami ou d’un défi ; vous les désactivez quand vous voulez.',
+        n4_t='Les clans', n4_p='Réunissez votre famille, vos amis ou vos collègues dans un clan, partagez un code et comparez vos résultats du jour, de la semaine et du mois.',
+        n5_t='Sauvegardez votre progression', n5_p='Liez votre compte Google ou Apple pour retrouver vos pièces, costumes, séries et collection si vous changez de téléphone, même d’Android à iPhone. C’est facultatif.',
+        n6_t='Un événement à thème chaque mois', n6_p='De nouveaux événements arrivent sans mise à jour de l’application. Premier rendez-vous : « Noël autour du monde », dès le 1er décembre.',
         ages_p='Plus de 300 énigmes, de la tour Eiffel à Minecraft. Choisissez votre tranche d’âge dans les préférences : vous recevez les énigmes que tout le monde connaît, plus celles qui parlent à votre époque.',
         ages=[
             ('Tous publics', ['Tour Eiffel', 'Panda', 'Imprimerie', 'Cléopâtre']),
@@ -100,7 +102,7 @@ TEXTES = {
         p2_t='Des jokers', p2_p='Un indice offert, sans compter comme un essai.',
         p3_t='Des glaçons', p3_p='Ils gardent votre série au frais si vous manquez un jour.',
         p4_t='Des cartes à collectionner', p4_p='Elles récompensent votre progression.',
-        fin_h='Prêt à deviner ?', fin_p='Quizzle est disponible sur iPhone et sur Android. Aucun compte ni connexion requis : votre progression reste sur votre téléphone, et le pseudo est facultatif.',
+        fin_h='Prêt à deviner ?', fin_p='Quizzle est disponible sur iPhone et sur Android. Aucun compte n’est nécessaire pour jouer : le pseudo et la sauvegarde avec Google ou Apple sont facultatifs.',
         pied_pub='Quizzle est un jeu édité par Occitan Games.', conf='Confidentialité', ment='Mentions légales', contact='Contact',
         url_conf='confidentialite.html', url_ment='mentions-legales.html', url_home='',
         indice='Indice',
@@ -123,11 +125,13 @@ TEXTES = {
         m2_h='The adventure', m2_p='A treasure map, eight settings and endless levels. Every 30 levels, you earn a new title.', m2_t='New title',
         m3_h='The events', m3_p='Every month, a themed adventure in 20 steps, with a collectible card at the end.', m3_t='20 steps',
         ages_h='Riddles for every generation',
-        nouv_h='New in version 1.3', nouv_p='Play with friends: nicknames, daily results, challenges and notifications.',
+        nouv_h='New in version 1.4', nouv_p='Play with friends, create your clan, back up your progress and enjoy a themed event every month.',
         n1_t='A nickname, a friend code', n1_p='Create your nickname (optional) and share your friend code. Add your friends in a few seconds.',
         n2_t='Your friends’ daily results', n2_p='See who solved the daily mystery, in how many attempts, and react with an emoji.',
-        n3_t='Challenges and rematches', n3_p='Challenge a friend. For a rematch, you get a different riddle from the one you already know.',
-        n4_t='Useful notifications', n4_p='Get notified of a friend request or a challenge. You can turn them off at any time in your profile.',
+        n3_t='Challenges, rematches and notifications', n3_p='Challenge a friend. For a rematch, you get a different riddle from the one you already know. Notifications tell you about a friend request or a challenge; you can turn them off at any time.',
+        n4_t='Clans', n4_p='Bring your family, friends or coworkers together in a clan, share a code and compare your results for the day, the week and the month.',
+        n5_t='Back up your progress', n5_p='Link your Google or Apple account to get your coins, outfits, streaks and collection back if you change phones, even from Android to iPhone. It is optional.',
+        n6_t='A themed event every month', n6_p='New events arrive without an app update. First up: “Christmas Around the World”, starting 1 December.',
         ages_p='Over 300 riddles, from the Eiffel Tower to Minecraft. Pick your age group in the settings: you get the riddles everyone knows, plus the ones that speak to your era.',
         ages=[
             ('All ages', ['Eiffel Tower', 'Panda', 'Printing press', 'Cleopatra']),
@@ -144,7 +148,7 @@ TEXTES = {
         p2_t='Jokers', p2_p='A free clue that does not count as an attempt.',
         p3_t='Ice cubes', p3_p='They keep your streak on ice if you miss a day.',
         p4_t='Collectible cards', p4_p='They reward your progress.',
-        fin_h='Ready to guess?', fin_p='Quizzle is available on iPhone and Android. No account or sign-in required: your progress stays on your phone, and the nickname is optional.',
+        fin_h='Ready to guess?', fin_p='Quizzle is available on iPhone and Android. No account is needed to play: the nickname and the backup with Google or Apple are optional.',
         pied_pub='Quizzle is a game published by Occitan Games.', conf='Privacy', ment='Legal notice', contact='Contact',
         url_conf='privacy.html', url_ment='legal.html', url_home='',
         indice='Clue',
@@ -267,7 +271,9 @@ def page_accueil(t):
 <div class="petit"><span class="emoji" aria-hidden="true">👥</span><div><strong>{t['n1_t']}</strong><span>{t['n1_p']}</span></div></div>
 <div class="petit"><span class="emoji" aria-hidden="true">📅</span><div><strong>{t['n2_t']}</strong><span>{t['n2_p']}</span></div></div>
 <div class="petit"><span class="emoji" aria-hidden="true">⚔️</span><div><strong>{t['n3_t']}</strong><span>{t['n3_p']}</span></div></div>
-<div class="petit"><span class="emoji" aria-hidden="true">🔔</span><div><strong>{t['n4_t']}</strong><span>{t['n4_p']}</span></div></div>
+<div class="petit"><span class="emoji" aria-hidden="true">🛡️</span><div><strong>{t['n4_t']}</strong><span>{t['n4_p']}</span></div></div>
+<div class="petit"><span class="emoji" aria-hidden="true">☁️</span><div><strong>{t['n5_t']}</strong><span>{t['n5_p']}</span></div></div>
+<div class="petit"><span class="emoji" aria-hidden="true">🎄</span><div><strong>{t['n6_t']}</strong><span>{t['n6_p']}</span></div></div>
 </div>
 </div></section>
 
