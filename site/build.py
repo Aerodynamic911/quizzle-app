@@ -586,6 +586,44 @@ def page_lien():
     return html
 
 
+def page_jouer(source=''):
+    """Pages « /jouer » pour les réseaux sociaux (vouvoiement) : même logique que /quizzle (iPhone -> App Store,
+    Android -> Google Play, sinon boutons), mais une adresse par réseau (/jouer/facebook/, etc.) afin de mesurer
+    d'où viennent les visiteurs dans le tableau de bord (qui compte les pages vues par chemin)."""
+    prof = 2 if source else 1
+    racine = '../' * prof
+    t = dict(TEXTES['fr'], racine=racine, url_conf=racine + 'confidentialite.html', url_ment=racine + 'mentions-legales.html')
+    t_en = TEXTES['en']
+    chemin = 'jouer/' + (source + '/' if source else '')
+    titre = 'Quizzle : téléchargez le jeu des mystères, gratuit'
+    desc = 'Six indices, une seule réponse. Quizzle est gratuit, sans pub, et créé en famille. Téléchargez-le sur iPhone et Android.'
+    html = ouverture_page(t, titre, desc, 'en/', chemin, noindex=True)
+    html += entete(t, racine + 'en/', accueil=False)
+    html += f'''<main id="contenu" class="page lien"><div class="conteneur" style="text-align:center">
+{mot_marque()}
+<h1><span data-l="fr">Téléchargez Quizzle</span><span data-l="en" hidden>Download Quizzle</span></h1>
+<p class="chapeau" style="margin:14px auto 22px"><span data-l="fr">Six indices, une seule réponse. Gratuit, sans pub, créé en famille.</span><span data-l="en" hidden>Six clues, one answer. Free, no ads, made by a family.</span></p>
+<div id="telecharger" style="display:flex;justify-content:center">{boutiques(t)}</div>
+<p class="note" style="margin-top:16px"><span data-l="fr">{t['note_dispo']}</span><span data-l="en" hidden>{t_en['note_dispo']}</span></p>
+</div></main>
+<script>
+(function () {{
+  var ua = navigator.userAgent || '';
+  var ios = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+  var android = /Android/.test(ua);
+  var langue = ((navigator.language || 'fr') + '').slice(0, 2) === 'fr' ? 'fr' : 'en';
+  var nodes = document.querySelectorAll('[data-l]');
+  for (var i = 0; i < nodes.length; i++) nodes[i].hidden = nodes[i].getAttribute('data-l') !== langue;
+  var apple = {json.dumps(LIEN_APP_STORE)}, play = {json.dumps(LIEN_GOOGLE_PLAY)};
+  var cible = ios && apple ? apple : (android && play ? play : '');
+  if (cible) location.replace(cible);
+}})();
+</script>
+'''
+    html += pied(t)
+    return html
+
+
 def ecrire(chemin, contenu):
     complet = os.path.join(ICI, chemin)
     os.makedirs(os.path.dirname(complet), exist_ok=True)
@@ -598,6 +636,9 @@ if __name__ == '__main__':
     ecrire('index.html', page_accueil(fr))
     ecrire('en/index.html', page_accueil(en))
     ecrire('quizzle/index.html', page_lien())
+    ecrire('jouer/index.html', page_jouer())
+    for _src in ('facebook', 'instagram', 'tiktok', 'youtube'):
+        ecrire(f'jouer/{_src}/index.html', page_jouer(_src))
     ecrire('confidentialite.html', page_texte(fr, PRIVACY['fr'], 'confidentialite.html', 'en/privacy.html'))
     ecrire('en/privacy.html', page_texte(en, PRIVACY['en'], 'en/privacy.html', 'confidentialite.html'))
     ecrire('mentions-legales.html', page_texte(fr, LEGAL['fr'], 'mentions-legales.html', 'en/legal.html'))
