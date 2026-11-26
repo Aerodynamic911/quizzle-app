@@ -160,6 +160,17 @@ def ouverture_page(t, titre, description, chemin_autre, canon, noindex=False):
     r = t['racine']
     autre = 'fr' if t['lang'] == 'en' else 'en'
     robots = '<meta name="robots" content="noindex">' if noindex else ''
+    apple = '<meta name="apple-itunes-app" content="app-id=6826238020">\n' if canon in ('', 'en/') else ''
+    jsonld = ''
+    if canon in ('', 'en/'):
+        import json as _j
+        ld = {"@context": "https://schema.org", "@type": "MobileApplication", "name": "Quizzle",
+              "applicationCategory": "GameApplication", "genre": "Trivia", "operatingSystem": "iOS, Android",
+              "inLanguage": ["fr", "en"], "description": description, "url": SITE + "/" + canon,
+              "image": SITE + "/img/og.png", "downloadUrl": LIEN_APP_STORE,
+              "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"},
+              "publisher": {"@type": "Organization", "name": "Occitan Games", "url": SITE}}
+        jsonld = '<script type="application/ld+json">' + _j.dumps(ld, ensure_ascii=False) + '</script>\n'
     return f'''<!doctype html>
 <html lang="{t['lang']}">
 <head>
@@ -177,8 +188,14 @@ def ouverture_page(t, titre, description, chemin_autre, canon, noindex=False):
 <meta property="og:description" content="{description}">
 <meta property="og:image" content="{SITE}/img/og.png">
 <meta property="og:url" content="{SITE}/{canon}">
+<meta property="og:site_name" content="Quizzle">
+<meta property="og:locale" content="{'en_US' if t['lang'] == 'en' else 'fr_FR'}">
+<meta property="og:image:alt" content="Quizzle">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" type="image/png" href="{r}img/favicon.png">
+<meta name="twitter:title" content="{titre}">
+<meta name="twitter:description" content="{description}">
+<meta name="twitter:image" content="{SITE}/img/og.png">
+{apple}{jsonld}<link rel="icon" type="image/png" href="{r}img/favicon.png">
 <link rel="apple-touch-icon" href="{r}img/apple-touch-icon.png">
 <link rel="preload" href="{r}fonts/lilita-one-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="{r}assets/style.css">
